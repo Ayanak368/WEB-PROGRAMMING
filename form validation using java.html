@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+</head>
+<body bgcolor="green">
+    <h1 align="center">FORM VALIDATION</h1>
+    <center>
+        <form name="form" onsubmit="return validate_form()">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td>Mobile number</td>
+                    <td><input type="tel" name="mobile"></td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td><input type="text" name="user"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td><input type="reset" value="reset"></td>
+                    <td><input type="submit" value="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </center>
+
+    <script type="text/javascript">
+        function validate_form() {
+            var name = document.form.name.value;
+            var email = document.form.email.value;
+            var mobile = document.form.mobile.value;
+            var user = document.form.user.value;
+            var password = document.form.password.value;
+
+            // Check name
+            if (name == "") {
+                alert("Name is required");
+                return false;
+            }
+
+            // Check email
+            if (email == "") {
+                alert("Email is required");
+                return false;
+            }
+
+            // Check mobile number (10 digits)
+            if (mobile == "" || isNaN(mobile) || mobile.length != 10) {
+                alert("Enter a valid mobile number (10 digits)");
+                return false;
+            }
+
+            // Check username
+            if (user == "") {
+                alert("Username is required");
+                return false;
+            }
+
+            // Check password (minimum 8 characters, with at least one digit and one special character)
+            var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+            if (password == "" || !re.test(password)) {
+                alert("Password must be at least 8 characters with one uppercase, one lowercase, one digit, and one special character");
+                return false;
+            }
+
+            // If all checks pass, alert and submit the form
+            alert("Form has been submitted successfully!");
+            return true;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        div {
+            width: 300px;
+            margin: auto;
+            margin-top: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Registration Form</h2>
+    <div>
+        <form method="POST" action="">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name"><br>
+
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email"><br>
+
+            <label for="mobile">Mobile:</label>
+            <input type="text" name="mobile" id="mobile"><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password"><br><br>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Collect form data
+        $name = $_POST["name"];
+        $email = $_POST["email"];
+        $mobile = $_POST["mobile"];
+        $password = $_POST["password"];
+
+        // Name validation
+        if (empty($name)) {
+            echo "<script>alert('Name is required');</script>";
+        } else if (!preg_match("/^[a-zA-Z ]*$/", $name)) {
+            echo "<script>alert('Enter Your Name correctly');</script>";
+        }
+
+        // Email validation
+        else if (empty($email)) {
+            echo "<script>alert('Email is required');</script>";
+        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "<script>alert('Email is not in the correct format');</script>";
+        }
+
+        // Mobile validation
+        else if (empty($mobile)) {
+            echo "<script>alert('Mobile is required');</script>";
+        } else if (strlen($mobile) != 10 || !is_numeric($mobile)) {
+            echo "<script>alert('Mobile number should be 10 digits');</script>";
+        }
+
+        // Password validation
+        else if (empty($password)) {
+            echo "<script>alert('Password is required');</script>";
+        } else if (strlen($password) < 8) {
+            echo "<script>alert('Password must be at least 8 characters');</script>";
+        } else {
+            // If all validations pass, display form data
+            echo "<h3>Form Submitted Successfully!</h3>";
+            echo "<p><strong>Name:</strong> $name</p>";
+            echo "<p><strong>Email:</strong> $email</p>";
+            echo "<p><strong>Mobile:</strong> $mobile</p>";
+        }
+    }
+    ?>
+</body>
+</html>
